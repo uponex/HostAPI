@@ -5,9 +5,12 @@ from io import BytesIO
 import uvicorn
 
 app = FastAPI()
-# @app.get("/")
-# async def start():
-#     return
+
+
+@app.get("/")
+async def hello():
+    return {"result": "Its working YES!"}
+
 
 @app.post("/CONTOUR")
 async def image_filter(img: UploadFile = File(...)):
@@ -19,6 +22,7 @@ async def image_filter(img: UploadFile = File(...)):
     filtered_image.seek(0)
 
     return StreamingResponse(filtered_image, media_type="image/jpg")
+
 
 @app.post("/EMBOSS")
 async def image_filter(img: UploadFile = File(...)):
@@ -42,5 +46,5 @@ async def image_filter(img: UploadFile = File(...)):
 
     return StreamingResponse(filtered_image, media_type="image/jpg")
 
-#if __name__ == "__main__":
-#    uvicorn.run("main:app", host="127.0.0.1", port=5000, log_level="info")
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, log_level="info")
